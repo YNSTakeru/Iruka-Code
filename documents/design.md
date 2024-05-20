@@ -136,3 +136,189 @@ sequenceDiagram
 
 ### URL
 [https://www.figma.com/design/cItZoSDVeRNs1e1wRm2cvI/%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%BC%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0?node-id=0-1&t=J9i4kgLDVBqhkVf1-0](https://www.figma.com/design/cItZoSDVeRNs1e1wRm2cvI/%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%BC%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0?node-id=0-1&t=J9i4kgLDVBqhkVf1-0)
+
+
+## ER図
+
+```mermaid
+erDiagram
+    Users ||--o{ Teams : leader_id
+    Users ||--o{ Leader_Access_Datetime : leader_id
+    Users ||--o{ Class_memos : leader_id
+    Users ||--o{ Members : user_id
+    Users ||--o{ Comments : user_id
+    Users ||--o{ Comment_Targets : target_id
+    Users ||--o{ Answers : user_id
+    Teams ||--o{ Projects : team_id
+    Projects ||--o{ Leader_Access_Datetime : project_id
+    Projects ||--o{ Classes : project_id
+    Projects ||--o{ Comment_Tags : project_id
+    Classes ||--o{ Class_memos : class_id
+    Classes ||--o{ Members : class_id
+    Classes ||--o{ Comments : class_id
+    Members ||--o{ Member_Memos : member_id
+    Class_memos ||--o{ Member_Memos : memo_id
+    Comments ||--o{ Comment_Targets : comment_id
+    Comments ||--o{ Comment_Tag_Pivot : comment_id
+    Comments ||--o{ Comment_Files : comment_id
+    Comments ||--o{ Comment_Positions : comment_id
+    Comments ||--o{ Answers : comment_id
+    Comment_Tags ||--o{ Comment_Tag_Pivot : tag_id
+```
+
+## テーブル定義書
+
+### Usersテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
+| username | VARCHAR(50) | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| email | VARCHAR(255) | NULL | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | No |
+|image_url| VARCHAR(255) | NULL | No | No | No |
+| password | VARCHAR(128) | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| created_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+delete_flag | BOOLEAN | FALSE | No | No | No |
+
+
+## Teamsテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| team_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
+| leader_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| team_name | VARCHAR(255) | NULL | Yes | No | No |
+| created_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| deleted_flag | BOOLEAN | FALSE | No | No | No |
+
+### Projectsテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| project_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
+| team_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| project_name | VARCHAR(255) | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| start_timestamp | DATETIME | CURRENT_TIMESTAMP | No | No | No |
+| end_timestamp | DATETIME | NULL | No | No | No |
+| is_open | BOOLEAN | TRUE | No | No | No |
+| description | TEXT | NULL | No | No | No |
+| created_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| max_participant_count | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| max_class_num | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| deleted_flag | BOOLEAN | FALSE | No | No | No |
+
+### Leader_Access_Datetimeテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| leader_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| project_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| access_date | DATETIME | CURRENT_TIMESTAMP | No | No | No |
+
+### Classesテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| class_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
+| project_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| class_name | VARCHAR(255) | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| start_timestamp | DATETIME | CURRENT_TIMESTAMP | No | No | No |
+| end_timestamp | DATETIME | NULL | No | No | No |
+| is_open | BOOLEAN | TRUE | No | No | No |
+| deleted_flag | BOOLEAN | FALSE | No | No | No |
+| max_participant_count | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+
+### Class_memosテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| memo_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
+| class_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| leader_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| memo_title | VARCHAR(255) | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| memo_content | TEXT | NULL | No | No | No |
+| created_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| deleted_flag | BOOLEAN | FALSE | No | No | No |
+
+### Membersテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| member_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
+| user_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| class_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| access_date | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+
+### Member_Memosテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| member_memo_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
+| member_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| memo_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| memo_content | TEXT | NULL | No | No | No |
+| created_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| deleted_flag | BOOLEAN | FALSE | No | No | No |
+
+### Commentsテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| comment_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
+| class_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| user_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| comment_title | VARCHAR(255) | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| comment_content | TEXT | NULL | No | No | No |
+| is_solved | BOOLEAN | FALSE | No | No | No |
+| is_answer | BOOLEAN | FALSE | No | No | No |
+| created_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| deleted_flag | BOOLEAN | FALSE | No | No | No |
+
+### Comment_Targetsテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| comment_id | INT | NULL | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
+| target_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+
+### Comment_Tagsテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| tag_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
+| tag_name | VARCHAR(50) | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| project_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+
+### Comment_Tag_Pivotテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| comment_id | INT | NULL | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
+| tag_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+
+### Comment_Filesテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| file_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
+| comment_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| file_name | VARCHAR(50) | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| created_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| deleted_flag | BOOLEAN | FALSE | No | No | No |
+
+### Comment_Positionsテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| position_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
+| comment_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| start_text_position | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| end_text_position | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| coding_area_position | VARCHAR(255) | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| created_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| deleted_flag | BOOLEAN | FALSE | No | No | No |
+
+### Answersテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| answer_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
+| comment_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| user_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
+| answer_content | TEXT | NULL | No | No | No |
+| created_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| deleted_flag | BOOLEAN | FALSE | No | No | No |
