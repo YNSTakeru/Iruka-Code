@@ -322,3 +322,16 @@ delete_flag | BOOLEAN | FALSE | No | No | No |
 | created_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
 | updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
 | deleted_flag | BOOLEAN | FALSE | No | No | No |
+
+## システム構成図 (アプリケーション版)
+
+```mermaid
+graph LR
+    A[User\nブラウザ] -- HTTP/HTTPS --> B[Nextjs 13.5\nFrontend]
+    B -- API --> C[Laravel 10\nBackend]
+    C -- HTTP --> D[Nginx]
+    D -- SQL --> E[(MySQL\nDatabase)]
+    G[Netlify\nDeployment for Frontend]
+    B --Deploy --> G
+```
+
