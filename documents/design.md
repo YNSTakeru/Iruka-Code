@@ -328,9 +328,9 @@ delete_flag | BOOLEAN | FALSE | No | No | No |
 ```mermaid
 graph LR
     A[User\nブラウザ] -- HTTP/HTTPS --> B[Nextjs 13.5\nFrontend]
-    B -- API --> C[Laravel 10\nBackend]
+    B -- API\nJson --> C[Laravel 10\nBackend]
     C -- HTTP --> D[Nginx]
-    D -- SQL --> E[(MySQL\nDatabase)]
+    D -- SQL --> E[(MySQL 8.0 \nDatabase)]
     G[Netlify\nDeployment for Frontend]
     B --Deploy --> G
 ```
