@@ -157,6 +157,8 @@ erDiagram
     Classes ||--o{ Members : class_id
     Classes ||--o{ Comments : class_id
     Members ||--o{ Member_Memos : member_id
+    Files ||--o { Members : member_id
+    ErrorLogs ||--o { Files : file_id
     Class_memos ||--o{ Member_Memos : memo_id
     Comments ||--o{ Comment_Targets : comment_id
     Comments ||--o{ Comment_Tag_Pivot : comment_id
@@ -168,7 +170,7 @@ erDiagram
 
 ## テーブル定義書
 
-### Usersテーブル
+### ⭐︎Usersテーブル
 | 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
 | --- | --- | --- | --- | --- | --- |
 | id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
@@ -181,7 +183,7 @@ erDiagram
 delete_flag | BOOLEAN | FALSE | No | No | No |
 
 
-## Teamsテーブル
+## ⭐️Teamsテーブル
 | 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
 | --- | --- | --- | --- | --- | --- |
 | team_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
@@ -191,7 +193,7 @@ delete_flag | BOOLEAN | FALSE | No | No | No |
 | updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
 | deleted_flag | BOOLEAN | FALSE | No | No | No |
 
-### Projectsテーブル
+### ⭐️Projectsテーブル
 | 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
 | --- | --- | --- | --- | --- | --- |
 | project_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
@@ -207,14 +209,14 @@ delete_flag | BOOLEAN | FALSE | No | No | No |
 | max_class_num | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
 | deleted_flag | BOOLEAN | FALSE | No | No | No |
 
-### Leader_Access_Datetimeテーブル
+### ⭐️Leader_Access_Datetimeテーブル
 | 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
 | --- | --- | --- | --- | --- | --- |
 | leader_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
 | project_id | INT | NULL | <span style="color:#0000FF">Yes</span> | No | No |
 | access_date | DATETIME | CURRENT_TIMESTAMP | No | No | No |
 
-### Classesテーブル
+### ⭐️Classesテーブル
 | 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
 | --- | --- | --- | --- | --- | --- |
 | class_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
@@ -238,7 +240,7 @@ delete_flag | BOOLEAN | FALSE | No | No | No |
 | updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
 | deleted_flag | BOOLEAN | FALSE | No | No | No |
 
-### Membersテーブル
+### ⭐️Membersテーブル
 | 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
 | --- | --- | --- | --- | --- | --- |
 | member_id | INT | AUTO_INCREMENT | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> | <span style="color:#0000FF">Yes</span> |
@@ -322,6 +324,28 @@ delete_flag | BOOLEAN | FALSE | No | No | No |
 | created_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
 | updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
 | deleted_flag | BOOLEAN | FALSE | No | No | No |
+
+### ⭐️Filesテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| file_id | INT | AUTO_INCREMENT | Yes | Yes | Yes |
+| member_id | INT | AUTO_INCREMENT | Yes | Yes | Yes |
+| content | INT | AUTO_INCREMENT | Yes | Yes | No |
+| created_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| deleted_flag | BOOLEAN | FALSE | No | No | No |
+
+### ⭐️ErrorLogsテーブル
+| 項目名 | データ型 | 初期値 | 必須 | インデックス | 主キー |
+| --- | --- | --- | --- | --- | --- |
+| error_log_id | INT | AUTO_INCREMENT | Yes | Yes | Yes |
+| member_id | INT | NULL | Yes | Yes | No |
+| file_id | INT | NULL | Yes | Yes | No |
+| content | TEXT | NULL | Yes | No | No |
+| created_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| updated_at | TIMESTAMP | CURRENT_TIMESTAMP | No | No | No |
+| deleted_flag | BOOLEAN | FALSE | No | No | No |
+
 
 ## システム構成図 (アプリケーション版)
 
